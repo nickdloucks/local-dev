@@ -1,7 +1,15 @@
+/**
+ * A cash-till/POS function for processing transactions with cash
+ * @param {number} price : cost of goods to customer
+ * @param {number} cash : cash given by customer to pay for goods
+ * @param {2-D array} cid : "cash-in-drawer", specified ammounts for each type of bill/coin
+ * @returns {object} tillState : the state of the drawer; 
+ *      i.e. whether it is open for more business, and the ammount of $ still remaining
+ */
 function checkCashRegister(price, cash, cid) {
     let changeDue = cash - price;
     let tenderList = [];
-    let tillState = { status: "Open", change: tenderList}
+    let tillState = { status: "OPEN", change: tenderList} // state variable to return, set w/ default values
     // ========= DATA STORE ====
     const MONEY = {
         "PENNY": .01,
