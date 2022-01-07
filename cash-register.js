@@ -1,4 +1,7 @@
 function checkCashRegister(price, cash, cid) {
+    let changeDue = cash - price;
+    let tenderList = [];
+    let tillState = { status: "Open", change: tenderList}
     // ========= DATA STORE ====
     const MONEY = {
         "PENNY": .01,
@@ -11,8 +14,7 @@ function checkCashRegister(price, cash, cid) {
         "TWENTY": 20.00,
         "ONE HUNDRED": 100.00
     }
-    let changeDue = cash - price;
-    let tenderList = [];
+
 
     function tillCount(arr2D){
         let counter = 0;
@@ -26,9 +28,9 @@ function checkCashRegister(price, cash, cid) {
 
     //====BODY OF ALGORITHM============
     if (totalTill < changeDue){
-        return {status: "INSUFFICIENT_FUNDS", change: []};
+        return {status: "INSUFFICIENT_FUNDS", change: []}; // JUST RETURN <tillState>
     } else if (totalTill === changeDue){
-        return {status: "CLOSED", change: cid};
+        return {status: "CLOSED", change: cid}; // JUST RETURN <tillState>
     } else {
         cid = cid.reverse();
         for (let tender of cid){
@@ -48,10 +50,10 @@ function checkCashRegister(price, cash, cid) {
 
     if (changeDue > 0){
         console.log({status: "INSUFFICIENT_FUNDS", change: []})
-        return {status: "INSUFFICIENT_FUNDS", change: []};
+        return {status: "INSUFFICIENT_FUNDS", change: []}; // JUST RETURN <tillState>
     }
     console.log({status: "OPEN", change: tenderList})
-    return {status: "OPEN", change: tenderList};
+    return {status: "OPEN", change: tenderList}; // JUST RETURN <tillState>
 }
   
 checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], 
