@@ -23,13 +23,13 @@ function checkCashRegister(price, cash, cid) {
         "ONE HUNDRED": 100.00
     }
 
-
+////MAYBE REFACTOR THE CID COUNTING SUBROUTINE
     function tillCount(arr2D){
         let counter = 0;
         for (let i=0; i < arr2D.length; i++){
             counter += arr2D[i][1];
         };
-        counter = Math.round(100 * counter) / 100;
+        counter = Math.round(100 * counter) / 100; // helps maintain accuracy of floats in Javascript
         return counter;
     }
     let totalTill = tillCount(cid);
@@ -42,6 +42,14 @@ function checkCashRegister(price, cash, cid) {
     } else {
 ////////////////////////////////////////////////////////////////////////////////////
 //KEEP ALL CODE ABOVE, SWITCH TO RECURSION/DIV&CONQ BELOW:
+        /* divide problem:
+            recursively calc bills change,
+            recursively calc coins change
+            if balance still remains, build up remeaining changeDue with coins
+                ex: if $1 is still owed but no more bills available, give 4 quarters
+
+
+        */
         cid = cid.reverse();
         for (let tender of cid){
             let currentTender = [tender[0], 0];
