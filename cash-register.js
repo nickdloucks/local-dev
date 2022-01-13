@@ -40,6 +40,8 @@ function checkCashRegister(price, cash, cid) {
     } else if (totalTill === changeDue){
         return {status: "CLOSED", change: cid}; // JUST RETURN <tillState>
     } else {
+////////////////////////////////////////////////////////////////////////////////////
+//KEEP ALL CODE ABOVE, SWITCH TO RECURSION/DIV&CONQ BELOW:
         cid = cid.reverse();
         for (let tender of cid){
             let currentTender = [tender[0], 0];
