@@ -7,14 +7,14 @@
  *      i.e. whether it is open for more business, and the ammount of $ still remaining
  */
 function checkCashRegister(price, cash, cid) {
-    if ( (price % 0.001 > 0) || (cash % 0.001 > 0) ) {
+    if ( (price % 0.001 > 0) || (cash % 0.001 > 0) ) { // handle edge case: input of money values < 1 cent
         return { status: "ERROR", change: "Invalid input: money values must be 0.01 or greater. Please try again."};
     }
 
     let $stillDue = cash - price; // initialize variable representing the amount of money the customer is still owed
     let changePile = []; // itemized breakdown of change to be given to the customer
     let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState;// state variable to return, set w/ default values
-    // ========= DATA STORE ====
+    // ========= STANDARD DATA NEEDED ====
     const MONEY = [
         ["PENNY", 0.01],
         ["NICKEL", 0.05],
@@ -33,16 +33,17 @@ function checkCashRegister(price, cash, cid) {
         for (let i=0; i < arr2D.length; i++){
             counter += arr2D[i][1];
         };
-        counter = Math.round(100 * counter) / 100; // helps maintain accuracy of floats in Javascript
+        counter = Math.round(100 * counter) / 100; // this extra step helps maintain accuracy of floats in Javascript
         return counter;
     }
-    let totalTill = tillCount(cid);
+    let totalTill = tillCount(cid); // represents the total money value in the till
 
-    //====BODY OF ALGORITHM============
+    //====MAIN BODY OF ALGORITHM============
     if (totalTill < $stillDue){
         // tillState.change already an empty array, and status is "insufficient funds" by default
         return tillState; // then return state object
-    } else if (totalTill === $stillDue){
+    } else if (totalTill === $stillDue){ // customer is owed the exact ammount of change in the till
+        // give customer the change and close out the till
         return {status: "CLOSED", change: cid};
     } else {
 ////////////////////////////////////////////////////////////////////////////////////
