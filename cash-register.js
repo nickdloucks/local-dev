@@ -7,9 +7,9 @@
  *      i.e. whether it is open for more business, and the ammount of $ still remaining
  */
 function checkCashRegister(price, cash, cid) {
-    let changeDue = cash - price;
-    let tenderList = [];
-    let tillState = { status: "OPEN", change: tenderList} // state variable to return, set w/ default values
+    let changeDue = cash - price; // initialize variable representing the amount of money the customer is still owed
+    let changePile = []; // itemized breakdown of change to be given to the customer
+    let { status = "OPEN", change = changePile} = tillState;// state variable to return, set w/ default values
     // ========= DATA STORE ====
     const MONEY = {
         "PENNY": .01,
@@ -60,18 +60,18 @@ function checkCashRegister(price, cash, cid) {
                 changeDue = Math.round(100 * changeDue) / 100;
             }
             if(currentTender[1] > 0){
-                tenderList.push(currentTender);
+                changePile.push(currentTender);
             }
         }
-        console.log(...tenderList)
+        console.log(...changePile)
     }
 
     if (changeDue > 0){
         console.log({status: "INSUFFICIENT_FUNDS", change: []})
         return {status: "INSUFFICIENT_FUNDS", change: []}; // JUST RETURN <tillState>
     }
-    console.log({status: "OPEN", change: tenderList})
-    return {status: "OPEN", change: tenderList}; // JUST RETURN <tillState>
+    console.log({status: "OPEN", change: changePile})
+    return {status: "OPEN", change: changePile}; // JUST RETURN <tillState>
 }
   
 checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], 
