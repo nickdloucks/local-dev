@@ -45,7 +45,7 @@ function checkCashRegister(price, cash, cid) {
     } else if (totalTill === $stillDue){ // customer is owed the exact ammount of change in the till
         // give customer the change and close out the till
         return {status: "CLOSED", change: cid};
-    } else {
+    } else { // when totalTill > $stillDue
 ////////////////////////////////////////////////////////////////////////////////////
 //KEEP ALL CODE ABOVE, SWITCH TO RECURSION/DIV&CONQ BELOW:
         /* divide problem:
@@ -56,20 +56,24 @@ function checkCashRegister(price, cash, cid) {
 
 
         */
-        cid = cid.reverse();
-        for (let tender of cid){
-            let currentTender = [tender[0], 0];
-            while (($stillDue >= MONEY[tender[0]]) && (tender[1] > 0)){
-                currentTender[1] += MONEY[tender[0]];
-                tender[1] -= MONEY[tender[0]];
-                $stillDue -= MONEY[tender[0]];
-                $stillDue = Math.round(100 * $stillDue) / 100;
+        function recurseCount($owed, $index){
+            if($owed == 0){return;}
+            let $type = MONEY[$index[0]];
+            let $val = MONEY[$index[1]];
+            if($owed == $val){
+                $owed = 0;
+                return [$type, $val];
+                // EDIT FOR CONCURRENT CONSOLIDATION: SEE NOTEBOOK
+            } else if ($owed > $val){
+                $owed -= $val;
+                // ADD TO CHANGE PILE, REMOVE FROM TILL
+            } else { // $owed < $val
+                return recurseCount($owed, $index - 1);
+                // move down to the next lower valued tender and start pulling $ from that slot
             }
-            if(currentTender[1] > 0){
-                changePile.push(currentTender);
-            }
+
         }
-        console.log(...changePile)
+        // ADD PILE-SORTING FUNCTION TO CONSOLIDATE MULTIPLE ITERATIONS OF THE SAME $TYPE
     }
     /////////////////////////////////////// sorting thru $ in the section above
 
