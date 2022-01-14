@@ -15,17 +15,17 @@ function checkCashRegister(price, cash, cid) {
     let changePile = []; // itemized breakdown of change to be given to the customer
     let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState;// state variable to return, set w/ default values
     // ========= DATA STORE ====
-    const MONEY = {
-        "PENNY": .01,
-        "NICKEL": .05,
-        "DIME": .10,
-        "QUARTER": .25,
-        "ONE": 1.00,
-        "FIVE": 5.00,
-        "TEN": 10.00,
-        "TWENTY": 20.00,
-        "ONE HUNDRED": 100.00
-    }
+    const MONEY = [
+        ["PENNY", 0.01],
+        ["NICKEL", 0.05],
+        ["DIME", 0.10],
+        ["QUARTER", 0.25],
+        ["ONE", 1.00],
+        ["FIVE", 5.00],
+        ["TEN", 10.00],
+        ["TWENTY", 20.00],
+        ["ONE HUNDRED", 100.00]
+    ]
 
 ////MAYBE REFACTOR THE CID COUNTING SUBROUTINE
     function tillCount(arr2D){
@@ -73,9 +73,10 @@ function checkCashRegister(price, cash, cid) {
     /////////////////////////////////////// sorting thru $ in the section above
 
     if (changeDue > 0){
-        // at this point, any bills or coins remaining in the till will be bigger than the amount due to the customer
+        // at this point, exact change cannot be given:
+        // any bills or coins remaining in the till will be bigger than the amount due to the customer
         console.log({status: "INSUFFICIENT_FUNDS", change: []});
-        return tillState; // JUST RETURN <tillState>
+        return tillState;
     }
     // at this point, the exact amount of change is given to the customer and the till is ready for the next transaction
     console.log({status: "OPEN", change: changePile})
