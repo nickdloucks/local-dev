@@ -73,9 +73,11 @@ function checkCashRegister(price, cash, cid) {
     /////////////////////////////////////// sorting thru $ in the section above
 
     if (changeDue > 0){
+        // at this point, any bills or coins remaining in the till will be bigger than the amount due to the customer
         console.log({status: "INSUFFICIENT_FUNDS", change: []});
         return tillState; // JUST RETURN <tillState>
     }
+    // at this point, the exact amount of change is given to the customer and the till is ready for the next transaction
     console.log({status: "OPEN", change: changePile})
     return {status: "OPEN", change: changePile}; // JUST RETURN <tillState>
 }
