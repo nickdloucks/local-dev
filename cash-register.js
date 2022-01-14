@@ -11,7 +11,7 @@ function checkCashRegister(price, cash, cid) {
         return { status: "ERROR", change: "Invalid input: money values must be 0.01 or greater. Please try again."};
     }
 
-    let changeDue = cash - price; // initialize variable representing the amount of money the customer is still owed
+    let $stillDue = cash - price; // initialize variable representing the amount of money the customer is still owed
     let changePile = []; // itemized breakdown of change to be given to the customer
     let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState;// state variable to return, set w/ default values
     // ========= DATA STORE ====
@@ -39,10 +39,10 @@ function checkCashRegister(price, cash, cid) {
     let totalTill = tillCount(cid);
 
     //====BODY OF ALGORITHM============
-    if (totalTill < changeDue){
+    if (totalTill < $stillDue){
         // tillState.change already an empty array, and status is "insufficient funds" by default
         return tillState; // then return state object
-    } else if (totalTill === changeDue){
+    } else if (totalTill === $stillDue){
         return {status: "CLOSED", change: cid};
     } else {
 ////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +50,7 @@ function checkCashRegister(price, cash, cid) {
         /* divide problem:
             recursively calc bills change,
             recursively calc coins change
-            if balance still remains, build up remeaining changeDue with coins
+            if balance still remains, build up remeaining $stillDue with coins
                 ex: if $1 is still owed but no more bills available, give 4 quarters
 
 
@@ -58,11 +58,11 @@ function checkCashRegister(price, cash, cid) {
         cid = cid.reverse();
         for (let tender of cid){
             let currentTender = [tender[0], 0];
-            while ((changeDue >= MONEY[tender[0]]) && (tender[1] > 0)){
+            while (($stillDue >= MONEY[tender[0]]) && (tender[1] > 0)){
                 currentTender[1] += MONEY[tender[0]];
                 tender[1] -= MONEY[tender[0]];
-                changeDue -= MONEY[tender[0]];
-                changeDue = Math.round(100 * changeDue) / 100;
+                $stillDue -= MONEY[tender[0]];
+                $stillDue = Math.round(100 * $stillDue) / 100;
             }
             if(currentTender[1] > 0){
                 changePile.push(currentTender);
@@ -72,7 +72,7 @@ function checkCashRegister(price, cash, cid) {
     }
     /////////////////////////////////////// sorting thru $ in the section above
 
-    if (changeDue > 0){
+    if ($stillDue > 0){
         // at this point, exact change cannot be given:
         // any bills or coins remaining in the till will be bigger than the amount due to the customer
         console.log({status: "INSUFFICIENT_FUNDS", change: []});
