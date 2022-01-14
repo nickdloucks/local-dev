@@ -9,7 +9,7 @@
 function checkCashRegister(price, cash, cid) {
     let changeDue = cash - price; // initialize variable representing the amount of money the customer is still owed
     let changePile = []; // itemized breakdown of change to be given to the customer
-    let { status = "OPEN", change = changePile} = tillState;// state variable to return, set w/ default values
+    let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState;// state variable to return, set w/ default values
     // ========= DATA STORE ====
     const MONEY = {
         "PENNY": .01,
@@ -36,9 +36,10 @@ function checkCashRegister(price, cash, cid) {
 
     //====BODY OF ALGORITHM============
     if (totalTill < changeDue){
-        return {status: "INSUFFICIENT_FUNDS", change: []}; // JUST RETURN <tillState>
+        // tillState.change already an empty array, and status is "insufficient funds" by default
+        return tillState; // then return state object
     } else if (totalTill === changeDue){
-        return {status: "CLOSED", change: cid}; // JUST RETURN <tillState>
+        return {status: "CLOSED", change: cid};
     } else {
 ////////////////////////////////////////////////////////////////////////////////////
 //KEEP ALL CODE ABOVE, SWITCH TO RECURSION/DIV&CONQ BELOW:
@@ -65,10 +66,11 @@ function checkCashRegister(price, cash, cid) {
         }
         console.log(...changePile)
     }
+    /////////////////////////////////////// sorting thru $ in the section above
 
     if (changeDue > 0){
-        console.log({status: "INSUFFICIENT_FUNDS", change: []})
-        return {status: "INSUFFICIENT_FUNDS", change: []}; // JUST RETURN <tillState>
+        console.log({status: "INSUFFICIENT_FUNDS", change: []});
+        return tillState; // JUST RETURN <tillState>
     }
     console.log({status: "OPEN", change: changePile})
     return {status: "OPEN", change: changePile}; // JUST RETURN <tillState>
