@@ -7,6 +7,10 @@
  *      i.e. whether it is open for more business, and the ammount of $ still remaining
  */
 function checkCashRegister(price, cash, cid) {
+    if ( (price % 0.001 > 0) || (cash % 0.001 > 0) ) {
+        return { status: "ERROR", change: "Invalid input: money values must be 0.01 or greater. Please try again."};
+    }
+
     let changeDue = cash - price; // initialize variable representing the amount of money the customer is still owed
     let changePile = []; // itemized breakdown of change to be given to the customer
     let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState;// state variable to return, set w/ default values
