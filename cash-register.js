@@ -66,6 +66,8 @@ function checkCashRegister(price, cash, cid) {
                 // EDIT FOR CONCURRENT CONSOLIDATION: SEE NOTEBOOK
             } else if ($owed > $val){
                 $owed -= $val;
+// If $type already in changePile, just add to the value
+// Otherwise add the $type and increment the value
                 // ADD TO CHANGE PILE, REMOVE FROM TILL
             } else { // $owed < $val
                 return recurseCount($owed, $index - 1);
