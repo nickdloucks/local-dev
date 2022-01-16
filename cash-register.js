@@ -58,12 +58,15 @@ function checkCashRegister(price, cash, cid) {
         */
         function recurseCount($owed, $index){
             if($owed == 0){return;}
-            let $type = MONEY[$index[0]];
-            let $val = MONEY[$index[1]];
+            let $type = MONEY[$index][0];
+            let $val = MONEY[$index][1];
             if($owed == $val){
-                $owed = 0;
+                //$owed = 0;
+                // use courrying to give results of an expression later?
                 return [$type, $val];
                 // EDIT FOR CONCURRENT CONSOLIDATION: SEE NOTEBOOK
+                // use implicit creation of array indexes to do this on the change pile index
+                // add param: changpile index
             } else if ($owed > $val){
                 $owed -= $val;
 // If $type already in changePile, just add to the value
@@ -76,6 +79,9 @@ function checkCashRegister(price, cash, cid) {
 
         }
         // ADD PILE-SORTING FUNCTION TO CONSOLIDATE MULTIPLE ITERATIONS OF THE SAME $TYPE
+        billsArr = [];
+        coinsArr = [];
+
     }
     /////////////////////////////////////// sorting thru $ in the section above
 
