@@ -15,7 +15,7 @@ function checkCashRegister(price, cash, cid) {
     let changePile = []; // itemized breakdown of change to be given to the customer
     let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState;// state variable to return, set w/ default values
     // ========= STANDARD DATA NEEDED ====
-    const MONEY = [
+    const MONEY = [ // money value data stored in array so the recursive function can process it in order of value
         ["PENNY", 0.01],
         ["NICKEL", 0.05],
         ["DIME", 0.10],
