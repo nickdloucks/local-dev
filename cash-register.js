@@ -60,10 +60,12 @@ function checkCashRegister(price, cash, cid) {
             if($owed == 0){return;}
             let $type = MONEY[$index][0]; // alias for name of bill/coin
             let $val = MONEY[$index][1]; // alias for value of bill/coin
-            if($owed == $val){
+            if($owed == $val){ // EVEN DIV CHANGE POP SUBROUTINE
+                changePile = changePile.push([$type, $owed]);
+                return;
                 //$owed = 0;
                 // use courrying to give results of an expression later?
-                return [$type, $val];
+                //return [$type, $val];
                 // EDIT FOR CONCURRENT CONSOLIDATION: SEE NOTEBOOK
                 // use implicit creation of array indexes to do this on the change pile index
                 // add param: changpile index
