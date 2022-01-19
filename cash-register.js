@@ -61,14 +61,9 @@ function checkCashRegister(price, cash, cid) {
             let $type = MONEY[$index][0]; // alias for name of bill/coin
             let $val = MONEY[$index][1]; // alias for value of bill/coin
             if($owed == $val){ // EVEN DIV CHANGE POP SUBROUTINE
-                changePile = changePile.push([$type, $owed]);
+                // the ammount still owed is equal to the value of the current bill/coin
+                changePile = changePile.push([$type, $owed]); // add the $ name and value to the change pile to be given to customer
                 return;
-                //$owed = 0;
-                // use courrying to give results of an expression later?
-                //return [$type, $val];
-                // EDIT FOR CONCURRENT CONSOLIDATION: SEE NOTEBOOK
-                // use implicit creation of array indexes to do this on the change pile index
-                // add param: changpile index
             } else if ($owed > $val){ // CHANGE BUCKET POP SUBROUTINE:
                 let remainder = $owed % $val; // change still due after grabbing some of the current bill/coin from till
                 let give = $owed - remainder; // value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current $val)
