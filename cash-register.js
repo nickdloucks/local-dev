@@ -58,8 +58,8 @@ function checkCashRegister(price, cash, cid) {
         */
         function recurseCount($owed, $index){
             if($owed == 0){return;}
-            let $type = MONEY[$index][0];
-            let $val = MONEY[$index][1];
+            let $type = MONEY[$index][0]; // alias for name of bill/coin
+            let $val = MONEY[$index][1]; // alias for value of bill/coin
             if($owed == $val){
                 //$owed = 0;
                 // use courrying to give results of an expression later?
@@ -67,13 +67,16 @@ function checkCashRegister(price, cash, cid) {
                 // EDIT FOR CONCURRENT CONSOLIDATION: SEE NOTEBOOK
                 // use implicit creation of array indexes to do this on the change pile index
                 // add param: changpile index
-            } else if ($owed > $val){
-                $owed -= $val;
+            } else if ($owed > $val){ // CHANGE BUCKET POP SUBROUTINE:
+                let remainder = $owed % $val; // change still due after grabbing some of the current bill/coin from till
+                let give = $owed - remainder; // value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current $val)
+                changePile = changePile.push([$type, give]); // add the change to the pile to be given to the customer
+                recurseCount(remainder, $index - 1);
 // If $type already in changePile, just add to the value
 // Otherwise add the $type and increment the value
                 // ADD TO CHANGE PILE, REMOVE FROM TILL
             } else { // $owed < $val
-                return recurseCount($owed, $index - 1);
+                return recurseCount($owed, $index - 1); // IS A RETURN VAL NEEDED HERE??
                 // move down to the next lower valued tender and start pulling $ from that slot
             }
 
