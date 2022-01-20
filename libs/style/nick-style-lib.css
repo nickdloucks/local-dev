@@ -1,11 +1,20 @@
 :root {
     --nick-purple: #8a2be2; /* blueviolet */
+    --nick-dk-purple: #4b0082; /* indigo */
     --nick-navy: #00008b; /* darkblue */
     --nick-blue: #0000ff; /* blue */
+    --nick-lt-blue: #00bfff; /* deepskyblue */
     --nick-red: #ff0000; /* red */
+    --nick-maroon: #800000; /* maroon */
+    --nick-yellow: #ffff00; /* yellow */
     --nick-lime: #00ff00; /* lime */
     --nick-green: #008800; /* green */
     --nick-olive: #556b2f; /* darkolivegreen */
-    --nick-orange: #ff6100; 
-    
+    --nick-orange: #ff6100; /* -custom- */
+    --nick-brown: #8b3613; /* -custom- */
+    --nick-dk-gray: #363636; /* -custom- */
+    --nick-dull-silver: #cccccc; /* -custom- */
+    --nick-gray: #818181; /* -custom- */
+    --nick-dull-gold: #ffb200; /* -custom- */
+    /* BRONZE?? COPPER? METALLIC GREEN? */
 }
