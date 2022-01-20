@@ -18,3 +18,19 @@
     --nick-dull-gold: #ffb200; /* -custom- */
     /* BRONZE?? COPPER? METALLIC GREEN? */
 }
+html {
+    font-size: 24px; /* default font size for root of document */
+    
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Lucida Bright, Georgia, serif;
+}
+
+p, section, div, li {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8 em;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
