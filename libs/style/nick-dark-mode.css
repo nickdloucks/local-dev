@@ -1,0 +1,12 @@
+:root{
+    --nick-dk-gray: #363636; /* -custom- */
+    --nick-lime: #00ff00; /* lime */
+}
+html {
+    color: #ffffff;
+    background-color: var(--nick-dk-gray, #363636);
+}
+
+a{
+    color: var(--nick-lime, lime)
+}
