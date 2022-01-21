@@ -57,6 +57,10 @@ article, section {
     overflow: auto; */
 }
 
+.side-nav {
+    list-style-type: none;
+
+}
 
 a:hover{
     color: var(--nick-red, red);
@@ -122,4 +126,10 @@ a:visited{
 
 .flex-container {
     display: flex;
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 20px;
+    padding: 10px;
 }
