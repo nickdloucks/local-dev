@@ -119,3 +119,7 @@ a:visited{
     color: var(--nick-red, red);
     text-decoration: underline;
 }
+
+.flex-container {
+    display: flex;
+}
