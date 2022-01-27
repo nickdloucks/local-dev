@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import ControlButton from './buttons.mjs';
 
 /**
- * A control panel component that dynamically generates buttons for a given array of functions.
- * @property {array} functions: array of functions that will be mapped to buttons
- * @returns {import('@babel/types').JSXElement}: a series of buttons with onClick methods, bundled in a span element
+ * A control panel component that dynamically generates buttons 
+ * for a given array of functions/actions.
+ * @property {array} functions: array of functions that will be 
+ *    mapped to buttons
+ * @returns {import('@babel/types').JSXElement}: a series of buttons 
+ *    with onClick methods, bundled in a span element
  */
 
 class Controls extends React.PureComponent {
