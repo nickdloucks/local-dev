@@ -53,39 +53,40 @@ function checkCashRegister(price, cash, cid) {
             recursively calc coins change
             if balance still remains, build up remeaining $stillDue with coins
                 ex: if $1 is still owed but no more bills available, give 4 quarters
-
-
+// If $type already in changePile, just add to the value
+                // Otherwise add the $type and increment the value
+                // ADD TO CHANGE PILE, REMOVE FROM TILL?
+        // ADD PILE-SORTING FUNCTION TO CONSOLIDATE MULTIPLE ITERATIONS OF THE SAME $TYPE
+        // billsArr = [];
+        // coinsArr = [];
         */
         function recurseCount($owed, $index){
-            if(($owed == 0) || ($index < 0)){return;} // Stop recursion if no mor money is owed, 
+            if(($owed == 0) || ($index < 0)){return;} // Stop recursion if no more money is owed, 
             // or there are no more types of money that could be given out
             let $type = MONEY[$index][0]; // alias for name of current bill/coin
             let $val = MONEY[$index][1]; // alias for value of current bill/coin
+            
             if($owed == $val){ // EVEN DIV CHANGE POP SUBROUTINE
                 // the ammount still owed is equal to the value of the current bill/coin
                 changePile = changePile.unshift([$type, $owed]); // add the $ name and value to the change pile to be given to customer
+                // ******cid[$index][1] -= $owed; // remove from till
                 return;
             } else if ($owed > $val){ // CHANGE BUCKET POP SUBROUTINE:
                 let remainder = $owed % $val; // change still due after grabbing some of the current bill/coin from till
                 let give = $owed - remainder; // value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current $val)
                 changePile = changePile.unshift([$type, give]); // add the change to the pile to be given to the customer
+                // ******cid[$index][1] -= give; // remove from till
                 recurseCount(remainder, $index - 1);
                 return;
-// If $type already in changePile, just add to the value
-// Otherwise add the $type and increment the value
-                // ADD TO CHANGE PILE, REMOVE FROM TILL?
             } else { // $owed < $val
                 recurseCount($owed, $index - 1); // IS A RETURN VAL NEEDED HERE??
                 return; // move down to the next lower valued tender and start pulling $ from that slot
             }
 
         }
-        // ADD PILE-SORTING FUNCTION TO CONSOLIDATE MULTIPLE ITERATIONS OF THE SAME $TYPE
-        // billsArr = [];
-        // coinsArr = [];
         recurseCount($stillDue, 8); // start at index 8 of the MONEY array
     }
-    /////////////////////////////////////// sorting thru $ in the section above
+    ///////////////////////////////////////
 
     if ($stillDue > 0){
         // at this point, exact change cannot be given:
