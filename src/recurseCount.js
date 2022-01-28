@@ -37,14 +37,19 @@ function recurseCount(owed_$, index_$){
     } else if (owed_$ > unitVal){ // ITERATIVE UNIT-POP SUBROUTINE:
         
 
-        let remainder = owed_$ % unitVal; // change still due after grabbing some of the current bill/coin from till
-        let give_$ = owed_$ - remainder; // value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current unitVal)
+        let remainder = owed_$ % unitVal; // change still due that cannot be fulfilled from the current slot
+        let maxFromSlot = owed_$ - remainder; // max possible value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current unitVal)
         
-        for (let i=1; i <= (slotVal/unitVal); i++){
+        let unitCount = 0;
+        while ((unitCount < (slotVal / unitVal) && (unitCount < (maxFromSlot / unitVal))){
             // *****count how many  instances of the current bill you can give out
+            unitCount += 1;
         }
-        changePile.unshift([type_$, give_$]); // add the change to the pile to be given to the customer
-        cid[index_$][1] -= give_$; // remove from till
+        
+        let giveFromSlot = unitCount * unitVal;
+
+        changePile.unshift([type_$, giveFromSlot]); // add the change to the pile to be given to the customer
+        cid[index_$][1] -= giveFromSlot; // remove from till
         
         
 
