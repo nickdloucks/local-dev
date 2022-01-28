@@ -16,13 +16,14 @@ const MONEY = [ // money value data stored in array so the recursive function ca
 ];
 
 function recurseCount(owed_$, index_$){
-    if ((owed_$ == 0) || (index_$ < 0)){return;} // Stop recursion if no more money isowed$, 
-    // or there are no more types of money that could be given out
+    if ((owed_$ == 0) || (index_$ < 0)){return;} // Stop recursion if no more money is owed, 
+    // or there are no more types/units of money that could be given out for the remainder
 
     let slotVal = cid[index_$][1]; // alias for total value of the money in the current bill/coin slot
 
-    if (!slotVal){ // no $ in current slot
-        recurseCount(owed_$, index_$ - 1); // move onto next-biggest money slot
+    if ((!slotVal) || (owed_$ < unitVal)){ // no $ in current slot, or the current denomination/unit size is too big to give out
+        recurseCount(owed_$, index_$ - 1); // move on to next-biggest money slot
+        return;
     }
 
     let type_$ = MONEY[index_$][0]; // alias for name of current bill/coin
@@ -39,6 +40,9 @@ function recurseCount(owed_$, index_$){
         let remainder = owed_$ % unitVal; // change still due after grabbing some of the current bill/coin from till
         let give_$ = owed_$ - remainder; // value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current unitVal)
         
+        for (let i=1; i <= (slotVal/unitVal); i++){
+            // *****count how many  instances of the current bill you can give out
+        }
         changePile.unshift([type_$, give_$]); // add the change to the pile to be given to the customer
         cid[index_$][1] -= give_$; // remove from till
         
@@ -48,16 +52,8 @@ function recurseCount(owed_$, index_$){
 
         recurseCount(remainder, index_$ - 1);
         return;
-    } else { // owed_$ < unitVal
-        recurseCount(owed_$, index_$ - 1);
-        return; // move down to the next lower valued tender and start pulling $ from that slot
-    
-    
-    
-    
-    
     }
-
+    return;
 }
 recurseCount($stillDue, 8);
 
