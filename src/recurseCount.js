@@ -1,4 +1,7 @@
 let changePile = [];
+let cid = [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], 
+["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]];
+
 let $stillDue = 87.68;
 const MONEY = [ // money value data stored in array so the recursive function can process it in order of value
     ["PENNY", 0.01],
@@ -45,7 +48,7 @@ changePile.forEach(val => console.log(val));
 
 /**
  * This works great without considering the cid param...
- * 
+ * It also assumes that cid will provide ["$TYPE", 0.0] for any empty slots in the till
  * Still need to be sure that it is only taking from what money is actually in the till.
  * 
  * <slotVal> should NEVER become negative; 
