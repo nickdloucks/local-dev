@@ -1,7 +1,8 @@
 /**
  * A cash-till function for processing transactions with cash. It calculates how much money 
  * (and what type) will be given to the customer if change is due. This program assumes that 
- * <cid> param will provide ["$TYPE", 0.0] for any empty slots in the till.
+ * <cid> param will provide ["$TYPE", 0.0] for any empty slots in the till, and slots will be
+ * sorted in ascending order by its unit value.
  * @param {number} price : cost of goods to customer
  * @param {number} cash : cash given by customer to pay for goods
  * @param {2-D array} cid : "cash-in-drawer"; specified ammounts for each type of bill/coin
