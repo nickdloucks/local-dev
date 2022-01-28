@@ -38,4 +38,15 @@ function recurseCount($owed, $index){
 }
 recurseCount($stillDue, 8);
 
-console.log(changePile);
+changePile.forEach(val => console.log(val));
+
+
+/**
+ * This works great without considering the cid param...
+ * 
+ * Still need to be sure that it is only taking from what money is actually in the till.
+ * 
+ * 
+ * 
+ * 
+ */
