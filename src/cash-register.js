@@ -7,7 +7,9 @@
  * @param {number} cash : cash given by customer to pay for goods
  * @param {2-D array} cid : "cash-in-drawer"; specified ammounts for each type of bill/coin
  * @returns {object} tillState : the state of the drawer; 
- *      i.e. whether it is open for more business, and the ammount/type of money remaining in the till
+ *      i.e. whether it is open for more business, and the ammount/type of money
+ *      given as change. NOTE: The change given will only include units where the total value for the unit
+ *      given to the customer is > 0. For example, ["$TYPE", 0.0] will not appear in the return value.
  */
 function checkCashRegister(price, cash, cid) {
     if ( (price % 0.001 > 0) || (cash % 0.001 > 0) ) { // Edge case: input of money values < 1 cent

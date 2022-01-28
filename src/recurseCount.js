@@ -29,12 +29,12 @@ function recurseCount(owed_$, index_$){
     let type_$ = MONEY[index_$][0]; // alias for name of current bill/coin
     let unitVal = MONEY[index_$][1]; // alias for unit value of current bill/coin
       
-    if (owed_$ == unitVal){ // EVEN DIV CHANGE POP SUBROUTINE
+    if (owed_$ == unitVal){ // 1 EXACT UNIT-POP SUBROUTINE
         // the ammount stillowed$ is equal to the unit value of the current bill/coin
         changePile.unshift([type_$, owed_$]); // add the $ name and value to the change pile to be given to customer
         cid[index_$][1] -= owed_$; // remove from till
         return;
-    } else if (owed_$ > unitVal){ // CHANGE BUCKET POP SUBROUTINE:
+    } else if (owed_$ > unitVal){ // ITERATIVE UNIT-POP SUBROUTINE:
         
 
         let remainder = owed_$ % unitVal; // change still due after grabbing some of the current bill/coin from till
