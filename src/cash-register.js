@@ -15,7 +15,6 @@ function checkCashRegister(price, cash, cid) {
 
     let $stillDue = cash - price; // Init. variable: amount of money the customer is still owed
     let changePile = []; // itemized breakdown of change to be given to the customer
-    let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState; // state variable to return, set w/ default values
     // ========= STANDARD DATA NEEDED ====
     const MONEY = [ // money value data stored in array so the recursive function can process it in order of value
         ["PENNY", 0.01],
@@ -42,8 +41,7 @@ function checkCashRegister(price, cash, cid) {
 
     //==== MAIN BODY OF ALGORITHM ============
     if (totalTill < $stillDue){
-        // tillState.change already an empty array, and status is "insufficient funds" by default
-        return tillState; // then return state object
+        return {status: "INSUFFICIENT_FUNDS", change: []};
     } else if (totalTill === $stillDue){ // customer is owed the exact ammount of change in the till
         // give customer the change and close out the till
         return {status: "CLOSED", change: cid};
@@ -92,11 +90,11 @@ function checkCashRegister(price, cash, cid) {
         // at this point, exact change cannot be given:
         // any bills or coins remaining in the till will be bigger than the amount due to the customer
         console.log({status: "INSUFFICIENT_FUNDS", change: []});
-        return tillState;
+        return {status: "INSUFFICIENT_FUNDS", change: []};
     }
     // at this point, the exact amount of change is given to the customer and the till is ready for the next transaction
     console.log({status: "OPEN", change: changePile})
-    return {status: "OPEN", change: changePile}; // JUST RETURN <tillState>
+    return {status: "OPEN", change: changePile};
 }
   
 checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], 
