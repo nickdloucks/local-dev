@@ -57,7 +57,8 @@ function checkCashRegister(price, cash, cid) {
 
         */
         function recurseCount($owed, $index){
-            if($owed == 0){return;}
+            if(($owed == 0) || ($index < 0)){return;} // Stop recursion if no mor money is owed, 
+            // or there are no more types of money that could be given out
             let $type = MONEY[$index][0]; // alias for name of current bill/coin
             let $val = MONEY[$index][1]; // alias for value of current bill/coin
             if($owed == $val){ // EVEN DIV CHANGE POP SUBROUTINE
