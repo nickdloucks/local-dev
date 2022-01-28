@@ -20,6 +20,7 @@ function recurseCount(owed_$, index_$){
     // or there are no more types/units of money that could be given out for the remainder
 
     let slotVal = cid[index_$][1]; // alias for total value of the money in the current bill/coin slot
+    let unitVal = MONEY[index_$][1]; // alias for unit value of current bill/coin
 
     if ((!slotVal) || (owed_$ < unitVal)){ // no $ in current slot, or the current denomination/unit size is too big to give out
         recurseCount(owed_$, index_$ - 1); // move on to next-biggest money slot
@@ -27,7 +28,6 @@ function recurseCount(owed_$, index_$){
     }
 
     let type_$ = MONEY[index_$][0]; // alias for name of current bill/coin
-    let unitVal = MONEY[index_$][1]; // alias for unit value of current bill/coin
       
     if (owed_$ == unitVal){ // 1 EXACT UNIT-POP SUBROUTINE
         // the ammount stillowed$ is equal to the unit value of the current bill/coin
@@ -41,7 +41,7 @@ function recurseCount(owed_$, index_$){
         let maxFromSlot = owed_$ - remainder; // max possible value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current unitVal)
         
         let unitCount = 0;
-        while ((unitCount < (slotVal / unitVal) && (unitCount < (maxFromSlot / unitVal))){
+        while ((unitCount < (slotVal / unitVal)) && (unitCount < (maxFromSlot / unitVal))){
             // *****count how many  instances of the current bill you can give out
             unitCount += 1;
         }
@@ -49,11 +49,9 @@ function recurseCount(owed_$, index_$){
         let giveFromSlot = unitCount * unitVal;
 
         changePile.unshift([type_$, giveFromSlot]); // add the change to the pile to be given to the customer
-        cid[index_$][1] -= giveFromSlot; // remove from till
-        
-        
-
-
+        cid[index_$][1] -= giveFromSlot; // remove from till 
+        remainder += maxFromSlot - giveFromSlot; // if there wasn't enough in the slot to give out the maximum possible,
+        // then add the difference to the remainder and recurse on the remainder
 
         recurseCount(remainder, index_$ - 1);
         return;
