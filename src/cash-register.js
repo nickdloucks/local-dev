@@ -1,19 +1,21 @@
 /**
- * A cash-till/POS function for processing transactions with cash
+ * A cash-till function for processing transactions with cash. It calculates how much money 
+ * (and what type) will be given to the customer if change is due.
  * @param {number} price : cost of goods to customer
  * @param {number} cash : cash given by customer to pay for goods
- * @param {2-D array} cid : "cash-in-drawer", specified ammounts for each type of bill/coin
+ * @param {2-D array} cid : "cash-in-drawer"; specified ammounts for each type of bill/coin
  * @returns {object} tillState : the state of the drawer; 
- *      i.e. whether it is open for more business, and the ammount of $ still remaining
+ *      i.e. whether it is open for more business, and the ammount/type of money remaining in the till
  */
 function checkCashRegister(price, cash, cid) {
-    if ( (price % 0.001 > 0) || (cash % 0.001 > 0) ) { // handle edge case: input of money values < 1 cent
-        return { status: "ERROR", change: "Invalid input: money values must be 0.01 or greater. Please try again."};
+    if ( (price % 0.001 > 0) || (cash % 0.001 > 0) ) { // Edge case: input of money values < 1 cent
+        price -= (price % 0.001); // Only mutates param value if it's not in correct format,
+        cash -= (cash % 0.001); // otherwise this function uses the param values as-is
     }
 
-    let $stillDue = cash - price; // initialize variable representing the amount of money the customer is still owed
+    let $stillDue = cash - price; // Init. variable: amount of money the customer is still owed
     let changePile = []; // itemized breakdown of change to be given to the customer
-    let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState;// state variable to return, set w/ default values
+    let { status = "INSUFFICIENT_FUNDS", change = changePile} = tillState; // state variable to return, set w/ default values
     // ========= STANDARD DATA NEEDED ====
     const MONEY = [ // money value data stored in array so the recursive function can process it in order of value
         ["PENNY", 0.01],
