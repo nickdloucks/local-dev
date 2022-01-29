@@ -51,47 +51,51 @@ function checkCashRegister(price, cash, cid) {
         return {status: "CLOSED", change: cid};
     } else { // when totalTill > $stillDue
 ////////////////////////////////////////////////////////////////////////////////////
-//KEEP ALL CODE ABOVE, SWITCH TO RECURSION/DIV&CONQ BELOW:
-        /* divide problem:
-            recursively calc bills change,
-            recursively calc coins change
-            if balance still remains, build up remeaining $stillDue with coins
-                ex: if $1 is still owed but no more bills available, give 4 quarters
-// If $type already in changePile, just add to the value
-                // Otherwise add the $type and increment the value
-                // ADD TO CHANGE PILE, REMOVE FROM TILL?
-        // ADD PILE-SORTING FUNCTION TO CONSOLIDATE MULTIPLE ITERATIONS OF THE SAME $TYPE
-        // billsArr = [];
-        // coinsArr = [];
-        */
-        function recurseCount($owed, $index){
-            if(($owed == 0) || ($index < 0)){return;} // Stop recursion if no more money is owed, 
-            // or there are no more types of money that could be given out
-            let $type = MONEY[$index][0]; // alias for name of current bill/coin
-            let $val = MONEY[$index][1]; // alias for value of current bill/coin
-            
-            if($owed == $val){ // EVEN DIV CHANGE POP SUBROUTINE
-                // the ammount still owed is equal to the value of the current bill/coin
-                changePile = changePile.unshift([$type, $owed]); // add the $ name and value to the change pile to be given to customer
-                // ******cid[$index][1] -= $owed; // remove from till
+        function recurseCount(owed_$, index_$){
+            if ((owed_$ == 0) || (index_$ < 0)){return;} // Stop recursion if no more money is owed, 
+            // or there are no more types/units of money that could be given out for the remainder
+
+            let slotVal = cid[index_$][1]; // alias for total value of the money in the current bill/coin slot
+            let unitVal = MONEY[index_$][1]; // alias for unit value of current bill/coin
+
+            if ((!slotVal) || (owed_$ < unitVal)){ // no $ in current slot, or the current denomination/unit size is too big to give out
+                recurseCount(owed_$, index_$ - 1); // move on to next-biggest money slot
                 return;
-            } else if ($owed > $val){ // CHANGE BUCKET POP SUBROUTINE:
-                let remainder = $owed % $val; // change still due after grabbing some of the current bill/coin from till
-                let give = $owed - remainder; // value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current $val)
-                changePile = changePile.unshift([$type, give]); // add the change to the pile to be given to the customer
-                // ******cid[$index][1] -= give; // remove from till
-                recurseCount(remainder, $index - 1);
-                return;
-            } else { // $owed < $val
-                recurseCount($owed, $index - 1); // IS A RETURN VAL NEEDED HERE??
-                return; // move down to the next lower valued tender and start pulling $ from that slot
             }
 
-        }
-        recurseCount($stillDue, 8); // start at index 8 of the MONEY array
-    }
-    ///////////////////////////////////////
+            let type_$ = MONEY[index_$][0]; // alias for name of current bill/coin
+      
+            if (owed_$ == unitVal){ // 1 EXACT UNIT-POP SUBROUTINE
+                // the ammount stillowed$ is equal to the unit value of the current bill/coin
+                changePile.unshift([type_$, owed_$]); // add the $ name and value to the change pile to be given to customer
+                cid[index_$][1] -= owed_$; // remove from till
+                return;
+            } else if (owed_$ > unitVal){ // ITERATIVE UNIT-POP SUBROUTINE:
+        
 
+                let remainder = owed_$ % unitVal; // change still due that cannot be fulfilled from the current slot
+                let maxFromSlot = owed_$ - remainder; // max possible value of $ to be given from this slot (example: how much change in $1 bills if 1.00 is the current unitVal)
+        
+                let unitCount = 0;
+                while ((unitCount < (slotVal / unitVal)) && (unitCount < (maxFromSlot / unitVal))){
+                    // *****count how many  instances of the current bill you can give out
+                    unitCount += 1;
+                }
+        
+                let giveFromSlot = unitCount * unitVal;
+
+                changePile.unshift([type_$, giveFromSlot]); // add the change to the pile to be given to the customer
+                cid[index_$][1] -= giveFromSlot; // remove from till 
+                remainder += maxFromSlot - giveFromSlot; // if there wasn't enough in the slot to give out the maximum possible,
+                // then add the difference to the remainder and recurse on the remainder
+
+                recurseCount(remainder, index_$ - 1);
+                return;
+            }
+        return;
+        }
+///////////////////////////////////////
+    }
     if ($stillDue > 0){
         // at this point, exact change cannot be given:
         // any bills or coins remaining in the till will be bigger than the amount due to the customer
