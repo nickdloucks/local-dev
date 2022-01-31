@@ -92,7 +92,7 @@ function checkCashRegister(price, cash, cid) {
                 return;
             }
         console.log(...changePile);
-        console.log("^ End of Recursion")
+        console.log("^ End of Recursion");
         return;
         }
         recurseCount($stillDue, 8);
