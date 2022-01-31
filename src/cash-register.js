@@ -13,8 +13,7 @@
  */
 function checkCashRegister(price, cash, cid) {
     if ( (price % 0.001 > 0) || (cash % 0.001 > 0) ) { // Edge case: input of money values < 1 cent
-        price -= (price % 0.001); // Only mutates param value if it's not in correct format,
-        cash -= (cash % 0.001); // otherwise this function uses the param values as-is
+        return { status: "ERROR", change: null, message: "Please  round to the nearest cent and try again."}
     }
 
     let $stillDue = cash - price; // Init. variable: amount of money the customer is still owed
