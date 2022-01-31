@@ -1,0 +1,25 @@
+{
+  "name": "localdev",
+  "version": "1.0.0",
+  "description": "private dev environment for learning/testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickdloucks/local-dev.git"
+  },
+  "keywords": [
+    "localDev"
+  ],
+  "author": "Nick Loucks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickdloucks/local-dev/issues"
+  },
+  "homepage": "https://github.com/nickdloucks/local-dev#readme",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
