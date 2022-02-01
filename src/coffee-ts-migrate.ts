@@ -46,9 +46,9 @@ const peppermintQ = () => {
 
 // Create parent class Mocha
 class Mocha {
-  milk;
-  shot;
-  chocolateType;
+  milk: number;
+  shot: number;
+  chocolateType: string;
 
   constructor() {
     this.milk = 1;
@@ -75,7 +75,7 @@ class DarkChocolateMocha extends Mocha {
 // inherits from Mocha
 class PeppermintMocha extends Mocha {
   // add peppermint property
-  peppermintSyrup;
+  peppermintSyrup: number;
   constructor() {
     // include super to pull in parent constructor
     super();
@@ -106,7 +106,7 @@ const showMenu = async () => {
 
 // User questions
 const userOptions = async (
-  mochaObject
+  mochaObject: Mocha
 ) => {
   const milkPicked = await milkQ();
   const milkChoice = parseInt(milkPicked);
@@ -124,7 +124,7 @@ const userOptions = async (
   mochaObject.prepare();
 };
 
-const main = () => {
+const main = (): void => {
   let menuChoice = 0;
   const buildMocha = async ()=> {
     do {
