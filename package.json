@@ -28,5 +28,6 @@
   "dependencies": {
     "jasmine": "^4.0.2",
     "jasmine-spec-reporter": "^7.0.0"
-  }
+  },
+  "type": "module"
 }
