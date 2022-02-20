@@ -10,3 +10,7 @@ html {
 a{
     color: var(--nick-lime, lime)
 }
+
+a:hover{
+    color: var(--nick-dk-gray, #ffffff);
+}
