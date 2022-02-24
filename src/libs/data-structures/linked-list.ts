@@ -8,6 +8,9 @@ export default class LinkedList {
         this.head = (data) ? data[0]: null;
         this.tail = null;
 
+        if (data){
+            
+        }
         
     }
 }
