@@ -1,4 +1,4 @@
-import AbstractNode from "./a-node";
+import AbstractNode from "./a-node.mjs";
 
 export default class LinkedList {
     private head: null | AbstractNode;

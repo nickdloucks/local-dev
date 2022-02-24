@@ -1,16 +1,16 @@
 export default class AbstractNode {
-    private alias: string; // name of the node
-    private value: unknown; // value of the node
+    private alias; // name of the node
+    private value; // value of the node
 
     // public access methods:
-    public readonly getValue: unknown;
+    public readonly getValue;
     public setValue;
-    public readonly getAlias: unknown;
+    public readonly getAlias;
     public setAlias;
     next?: AbstractNode;
     last?: AbstractNode;
 
-    constructor (alias: string, val : any ){
+    constructor (alias: string | number, val : unknown ){
         this.alias = alias;
         this.value = val;
 
