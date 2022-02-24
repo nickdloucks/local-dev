@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "jtest": "npm run build && npm run jasmine"
+    "jtest": "npm run build && npm run jasmine --silent"
   },
   "repository": {
     "type": "git",
