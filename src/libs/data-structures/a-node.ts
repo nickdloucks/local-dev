@@ -7,6 +7,8 @@ export default class AbstractNode {
     public setValue;
     public readonly getAlias: unknown;
     public setAlias;
+    next?: AbstractNode;
+    last?: AbstractNode;
 
     constructor (alias: string, val : any ){
         this.alias = alias;
