@@ -5,8 +5,8 @@ describe("LinkedList suite.",()=>{
     
     it("sets <head> & <tail> nodes to <null> when there is no input value given to constructor.", ()=>{
         let list = new LinkedList();
-        expect(list.getHead).toEqual(null);
-        expect(list.getTail).toEqual(null);
+        expect(list.getHead()).toEqual(null);
+        expect(list.getTail()).toEqual(null);
     });
 
     it("returns correct value using 'getter' methods.", ()=>{
@@ -16,8 +16,9 @@ describe("LinkedList suite.",()=>{
         });
         let linked = new LinkedList(nodeList);
 
-        expect(linked.getHead()?.getAlias()).toEqual('a');
-        
+        expect(linked.getHead()?.getValue()).toEqual('a');
+        expect(linked.getHead()?.next?.getValue()).toEqual('b');
+        expect(linked.getHead()?.next?.next?.getValue()).toEqual('c');
     })
 
 })
