@@ -12,7 +12,7 @@ describe("LinkedList suite.",()=>{
     it("returns correct value using 'getter' methods.", ()=>{
         let data = ['a', 'b', 'c', 'd', 'e'];
         let nodeList: Array<AbstractNode> = data.map((val: string, index: number)=>{
-            return new AbstractNode(val, index);
+            return new AbstractNode(index, val);
         });
         let linked = new LinkedList(nodeList);
 
