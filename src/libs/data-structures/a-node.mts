@@ -6,7 +6,7 @@ export default class AbstractNode {
     public readonly getValue;
     public setValue;
 
-    next?: AbstractNode;
+    next?: AbstractNode | null;
     last?: AbstractNode;
 
     constructor (val : unknown, next?: AbstractNode ){
