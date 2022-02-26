@@ -4,8 +4,8 @@ import {default as LinkedList} from '../libs/data-structures/linked-list.mjs';
 describe("LinkedList suite.",()=>{
     // TESTING SAMPLE DATA. CONTEXT:
     let data = ['a', 'b', 'c', 'd', 'e'];
-    let nodeList: Array<AbstractNode> = data.map((val: string, index: number)=>{
-        return new AbstractNode(index, val);
+    let nodeList: Array<AbstractNode> = data.map((val: string)=>{
+        return new AbstractNode(val);
     });
     let linked = new LinkedList(nodeList);
     let listHead = linked.getHead();
@@ -25,11 +25,11 @@ describe("LinkedList suite.",()=>{
     it("changes values with 'setter' methods.", ()=>{
         // insert a new node at the head of the linked list,
         // then use the 'getter' to check that the 'setter' worked properly
-        let oldHead = listHead?.next;
-        let nHead = new AbstractNode('new head', '$');
+        let oldHead = listHead;
+        let nHead = new AbstractNode('new head');
         linked.setHead(nHead);
 
         expect(listHead).toEqual(nHead);
-        expect(listHead?.next).toEqual(oldHead);
+        expect(listHead?.next).toEqual(oldHead as AbstractNode);
     });
 })
