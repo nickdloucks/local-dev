@@ -20,6 +20,7 @@ export default class LinkedList {
         this.head = (data) ? data[0]: null; // init head of Linked List (LL)
         this.tail = (this.head) ? this.head: null; // init tail when the input array is 0 or 1 elements long
         this.length = (this.head) ? 1: 0; // init length to one if at least one node, 0 if <data> param is empty/unused
+        
 
         if(data && data.length > 1 && this.head != null){ // Populate LL if there are multiple elements.
             this.length = data.length;
@@ -42,13 +43,14 @@ export default class LinkedList {
         }
 
         this.setHead = function(newNode: AbstractNode): void {
-            if (this.head){
+            if (this.head){ // if there is already a head node:
+                this.head.last = newNode;
                 newNode.next = this.head; // link to previos head
-                this.head = newNode; // make the new node the new head
+                this.head = this.head.last; // make the new node the new head
             } else {
                 this.head = newNode;
-                // newNode.next = this.tail;
-
+                this.head.last = null;
+                this.tail = this.head;
             }
             
 
