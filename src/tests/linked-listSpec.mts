@@ -22,14 +22,14 @@ describe("LinkedList suite.",()=>{
         expect(listHead?.next?.next?.getValue()).toEqual('c');
     })
 
-    it("changes values with 'setter' methods.", ()=>{
+    xit("changes values with 'setter' methods.", ()=>{
         // insert a new node at the head of the linked list,
         // then use the 'getter' to check that the 'setter' worked properly
         let oldHead = listHead;
         let nHead = new AbstractNode('new head');
-        linked.setHead(nHead);
-
+        linked.insert(nHead, 0);
+        // *** add a spec that intdirectly tests the _insertHead/Tail methods
         expect(listHead).toEqual(nHead);
         expect(listHead?.next).toEqual(oldHead as AbstractNode);
     });
-})
+}); 
