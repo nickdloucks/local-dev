@@ -87,6 +87,7 @@ export default class LinkedList {
                 return this.length;
             }else if(index > this.length - 1){
                 this._insertTail(value);
+                return this.length;
             }else{
                 let currentNode = this.head;
                 for(let i = 0; i < index; i++){
@@ -97,6 +98,7 @@ export default class LinkedList {
                 //(if index is 0, call setHead method instad)
             // 
             this.length++;
+            return this.length
         }
 
         this._delHead = function(){
