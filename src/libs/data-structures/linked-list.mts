@@ -11,10 +11,13 @@ export default class LinkedList {
     private tail: null | AbstractNode;
     readonly getHead;
     readonly getTail;
-    private _insertHead;
-    private _insertTail;
+    private _insertHead; // private subroutine that could be used by <insert> method
+    private _insertTail; // private subroutine that could be used by <insert> method
+    private _delHead;
+    private _delTail;
     public insert;
     public remove;
+    public absorb;
     private length: number;
 
     constructor(data?: Array<AbstractNode>) {
@@ -95,6 +98,14 @@ export default class LinkedList {
             // 
             this.length++;
         }
+
+        this._delHead = function(){
+
+        }
+        this._delTail = function(){
+
+        }
+
         this.remove = function(value: AbstractNode): void {
             /**
              * Removes a given node from the Linked List.
@@ -102,6 +113,22 @@ export default class LinkedList {
              * @returns: void
              */
             this.length--;
+        }
+
+        this.absorb = function(spliceLL: LinkedList, insertPos: number): LinkedList{
+            /**
+             * Method for splicing in a new LinkedList into the current one.
+             * @param spliceLL: LinkedList ==> The new Linked List to be absorbed into the current instance of Linked List.
+             * @param insertPos: number ==> The Posision at which to splice in the new Linked List.
+             * @returns this: LinkedList ==> The updated instance of the Linked List.
+             */
+            
+            // JUST SET THE .NEXT AND .LAST OF THE APPROPRIATE NODES
+            // THEN REDEFINE WHICH NODES ARE THE HEAD AND TAIL (IF NECESSARY)
+            // SET THE HEAD.LAST TO NULL AND TAIL.NEXT TO NULL
+            // UPDATE THIS.LENGTH
+
+            return this;
         }
 
         if (data){
