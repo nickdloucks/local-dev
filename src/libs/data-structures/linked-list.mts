@@ -9,12 +9,13 @@ import AbstractNode from "./a-node.mjs";
 export default class LinkedList {
     private head: null | AbstractNode;
     private tail: null | AbstractNode;
-    getHead;
-    getTail;
-    setHead;
-    insert;
-    remove;
-    length: number;
+    readonly getHead;
+    readonly getTail;
+    private _insertHead;
+    private _insertTail;
+    public insert;
+    public remove;
+    private length: number;
 
     constructor(data?: Array<AbstractNode>) {
         this.head = (data) ? data[0]: null; // init head of Linked List (LL)
@@ -31,6 +32,7 @@ export default class LinkedList {
                     this.tail = data[i]; // the last node is the <tail> of the LL
                 } else {
                     data[i].next = data[i + 1] as AbstractNode;
+                    // add link to previous node in LL
                 }
             }
         }
@@ -42,27 +44,55 @@ export default class LinkedList {
             return this.tail;
         }
 
-        this.setHead = function(newNode: AbstractNode): void {
+        this._insertHead = function(newNode: AbstractNode): void {
             if (this.head){ // if there is already a head node:
                 this.head.last = newNode;
                 newNode.next = this.head; // link to previos head
-                this.head = this.head.last; // make the new node the new head
-            } else {
+                this.head = newNode; // make the new node the new head
+                this.head.last = null;
+            } else { // if no current head, the new node will be both the head and the tail
                 this.head = newNode;
                 this.head.last = null;
                 this.tail = this.head;
+                this.head.next = null;
             }
-            
-
+            this.length++;
         }
 
-        this.insert = function(value: AbstractNode, index: number): void {
+        this._insertTail = function(value: AbstractNode): void{
+            if(this.tail){
+                let oldTail = this.tail;
+                oldTail.next = value;
+                value.last = oldTail;
+                this.tail = value;
+                this.tail.next = null;
+                this.length++;
+            } else{ // if there is no tail, the LL is empty, so insert new value at head
+                this._insertHead(value);
+            }     
+        }
+
+        this.insert = function(value: AbstractNode, index: number): number {
             /**
              * Insert new node at given index.
              * @param value: AbstractNode ==> new node to be inserted.
              * @param index: number ==> position at which to insert the new node.
              * @returns: void
              */
+            if (index == 0){
+                this._insertHead(value);
+                return this.length;
+            }else if(index > this.length - 1){
+                this._insertTail(value);
+            }else{
+                let currentNode = this.head;
+                for(let i = 0; i < index; i++){
+                    currentNode = currentNode?.next;
+                }
+            }
+            // loop thru vals until you reach the index right before insert position 
+                //(if index is 0, call setHead method instad)
+            // 
             this.length++;
         }
         this.remove = function(value: AbstractNode): void {
