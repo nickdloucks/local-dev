@@ -13,8 +13,8 @@ export default class LinkedList {
     readonly getTail;
     private _insertHead; // private subroutine that could be used by <insert> method
     private _insertTail; // private subroutine that could be used by <insert> method
-    private _delHead;
-    private _delTail;
+    public delHead;
+    public delTail;
     public insert;
     public remove;
     public absorb;
@@ -22,7 +22,7 @@ export default class LinkedList {
     private length: number;
 
     constructor(data?: Array<AbstractNode>) {
-        this.head = (data) ? data[0]: null; // init head of Linked List (LL)
+        this.head = (data) ? data[0]: null; // init head of Linked List (hereafter "LL")
         this.tail = (this.head) ? this.head: null; // init tail when the input array is 0 or 1 elements long
         this.length = (this.head) ? 1: 0; // init length to one if at least one node, 0 if <data> param is empty/unused
         
@@ -102,14 +102,28 @@ export default class LinkedList {
             return this.length
         }
 
-        this._delHead = function(){
-
+        this.delHead = function(): void{
+            this.head = (this.head?.next) ? this.head.next as AbstractNode : null; // If <head> has a <next>, its <next> becomes the new <head>.
+            if(this.head){
+                delete this.head.last; // explicit garbage collection
+                this.head.last = null; // If there is a new <head> node, it should not point back to the old head node.
+            }
+            this.length = (this.length > 0) ? this.length-- : 0; // If the LL is not already empty, decrement its length property.
         }
-        this._delTail = function(){
 
+        this.delTail = function(): void{
+            this.tail = (this.tail?.last) ? this.tail.last as AbstractNode : null; // If <tail> has a <last>, its <last> becomes the new <tail>.     
+            if(this.tail){
+                delete this.tail.next; // explicit garbage collection
+                this.tail.next = null; // If there is a new <tail> node, it should not point forwards to the old tail node.
+            }
+            this.length = (this.length > 0) ? this.length-- : 0; // If the LL is not already empty, decrement its length property.
         }
 
-        this.remove = function(value: AbstractNode): void {
+        this.remove = function(value?: AbstractNode, index?: number): void {
+            if(arguments.length == 0){ // One of the two optional parameters must be used in order to remove a node.
+                return;
+            }
             /**
              * Removes a given node from the Linked List.
              * @param value: AbstractNode ==> node to be removed.
@@ -152,7 +166,7 @@ export default class LinkedList {
             // Potentially helpful console and process outputs below. 
             // If this program ever gets used in a web application or Node.js environment, 
             // the following two lines can be "un-commented" so they can take effect:
-            
+
             // console.log(`Retrieved node {${targetNode?.getValue()}} at index ${index}.`);
             // process.stdout.write(`Retrieved node {${targetNode?.getValue()}} at index ${index}.`);
             return targetNode;
