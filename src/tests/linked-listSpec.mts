@@ -17,6 +17,22 @@ describe("LinkedList suite.",()=>{
         expect(emptyList.getTail()).toEqual(null);
     });
 
+    it("deletes <head> and <tail> with del_H/T methods.", ()=>{
+        let letters = ['a', 'b', 'c', 'd', 'e'];
+        let letterNodes: Array<AbstractNode> = letters.map((val: string)=>{
+            return new AbstractNode(val);
+        });
+        let shortened = new LinkedList(letterNodes);
+
+        shortened.delHead();
+        console.log(shortened.getHead()?.getValue());
+        expect(shortened.getHead()?.getValue()).toEqual('b');
+        
+        shortened.delTail();
+        console.log(shortened.getTail()?.getValue());
+        expect(shortened.getTail()?.getValue()).toEqual('d');
+    })
+
     it("returns correct value using 'getter' methods and the <next> property on the nodes.", ()=>{
         expect(listHead?.getValue()).toEqual('a');
         expect(listHead?.next?.getValue()).toEqual('b');
