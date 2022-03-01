@@ -18,6 +18,7 @@ export default class LinkedList {
     public insert;
     public remove;
     public absorb;
+    public getNodeAtIndex;
     private length: number;
 
     constructor(data?: Array<AbstractNode>) {
@@ -91,7 +92,7 @@ export default class LinkedList {
             }else{
                 let currentNode = this.head;
                 for(let i = 0; i < index; i++){
-                    currentNode = currentNode?.next;
+                    // currentNode = currentNode?.next;
                 }
             }
             // loop thru vals until you reach the index right before insert position 
@@ -117,7 +118,47 @@ export default class LinkedList {
             this.length--;
         }
 
-        this.absorb = function(spliceLL: LinkedList, insertPos: number): LinkedList{
+        this.getNodeAtIndex = (index: number): AbstractNode | undefined => {
+            if(index >= this.length || index < 0){
+                return undefined; // do not search if index param is out of bounds of this LL
+            }
+
+            // Since this is a doubly linked list and searching by numeric index/position is an inherently "ordered" operation,
+            // I have optimized the <getNodeAtIndex> method to use a binary-search pattern to lower the algorithmic complexity.
+            // Each of the following two subroutines handles searching the correct half of the LL based on the <index> parameter.
+            const searchFirstHalf = (): AbstractNode => { // Arrow function used so that <this> keyword will refer to
+                // the current instance of LinkedList, rather than the <searchFirstHalf> function.
+                let currentNode = this.getHead();
+                for(let i = 0; i < index; i++){
+                    currentNode = currentNode?.next as AbstractNode;
+                }
+                return currentNode as AbstractNode; // Due to edge case handling subroutine above,
+                // the <currentNode> should never be <null>, so "Type coersion" can be used here.
+            }
+
+            const searchSecondHalf = (list: LinkedList = this): AbstractNode => { // Explicitly using the current
+                // instance of LinkedList as a default parameter, so that <this> keyword will refer to the current LL.
+                // I know this is inconsistent with the function above, I just want to demonstrate on my Github that I know
+                // multiple ways of achieving this.
+                let currentNode = this.getTail();
+                for(let i = this.length - 1; i > index; i--){
+                    currentNode = currentNode?.last as AbstractNode;
+                }
+                return currentNode as AbstractNode; // Due to edge case handling subroutine above,
+                // the <currentNode> should never be <null>, so "Type coersion" can be used here.
+            }
+
+            let targetNode = (index < this.length / 2) ? searchFirstHalf() : searchSecondHalf();
+            // Potentially helpful console and process outputs below. 
+            // If this program ever gets used in a web application or Node.js environment, 
+            // the following two lines can be "un-commented" so they can take effect:
+            
+            // console.log(`Retrieved node {${targetNode?.getValue()}} at index ${index}.`);
+            // process.stdout.write(`Retrieved node {${targetNode?.getValue()}} at index ${index}.`);
+            return targetNode;
+        }
+
+        this.absorb = function(splice_LL: LinkedList, insertPos: number): LinkedList{
             /**
              * Method for splicing in a new LinkedList into the current one.
              * @param spliceLL: LinkedList ==> The new Linked List to be absorbed into the current instance of Linked List.
