@@ -10,16 +10,21 @@ describe("LinkedList suite.",()=>{
     let linked = new LinkedList(nodeList);
     let listHead = linked.getHead();
     
+    // TESTS:
     it("sets <head> & <tail> nodes to <null> when there is no input value given to constructor.", ()=>{
         let emptyList = new LinkedList();
         expect(emptyList.getHead()).toEqual(null);
         expect(emptyList.getTail()).toEqual(null);
     });
 
-    it("returns correct value using 'getter' methods.", ()=>{
+    it("returns correct value using 'getter' methods and the <next> property on the nodes.", ()=>{
         expect(listHead?.getValue()).toEqual('a');
         expect(listHead?.next?.getValue()).toEqual('b');
         expect(listHead?.next?.next?.getValue()).toEqual('c');
+    });
+
+    it("reads the value at a given index correctly.", ()=>{
+        expect(linked.getNodeAtIndex(2)?.getValue()).toEqual('c');
     })
 
     xit("changes values with 'setter' methods.", ()=>{
