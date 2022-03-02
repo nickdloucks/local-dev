@@ -21,6 +21,7 @@ export default class LinkedList {
     public absorb;
     public getNodeAtIndex;
     private length: number;
+    public getLength;
 
     constructor(data?: Array<AbstractNode>) {
         this.head = (data) ? data[0]: null; // init head of Linked List (hereafter "LL")
@@ -47,6 +48,9 @@ export default class LinkedList {
         }
         this.getTail = function(): AbstractNode | null {
             return this.tail;
+        }
+        this.getLength = function(): number {
+            return this.length;
         }
 
         this._insertHead = function(newNode: AbstractNode): void {
