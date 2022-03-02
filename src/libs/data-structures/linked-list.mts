@@ -19,7 +19,7 @@ export default class LinkedList {
     public insert;
     public remove;
     public absorb;
-    public getNodeAtIndex;
+    public readIndex;
     private length: number;
     public getLength;
 
@@ -157,13 +157,13 @@ export default class LinkedList {
             }
         }
 
-        this.getNodeAtIndex = (index: number): AbstractNode | undefined => {
+        this.readIndex = (index: number): AbstractNode | undefined => {
             if(index >= this.length || index < 0){
                 return undefined; // do not search if index param is out of bounds of this LL
             }
 
             // Since this is a doubly linked list and searching by numeric index/position is an inherently "ordered" operation,
-            // I have optimized the <getNodeAtIndex> method to use a binary-search pattern to lower the algorithmic complexity.
+            // I have optimized the <readIndex> method to use a binary-search pattern to lower the algorithmic complexity.
             // Each of the following two subroutines handles searching the correct half of the LL based on the <index> parameter.
             const searchFirstHalf = (): AbstractNode => { // Arrow function used so that <this> keyword will refer to
                 // the current instance of LinkedList, rather than the <searchFirstHalf> function.
