@@ -15,6 +15,7 @@ export default class LinkedList {
     private _insertTail; // private subroutine that could be used by <insert> method
     public delHead;
     public delTail;
+    // public delIndex; NOT NEEDED IF VAL PARAM IGNORED IN .remove()
     public insert;
     public remove;
     public absorb;
@@ -93,6 +94,7 @@ export default class LinkedList {
                 let currentNode = this.head;
                 for(let i = 0; i < index; i++){
                     // currentNode = currentNode?.next;
+                    /////////////////////////////////// DEVELOPING
                 }
             }
             // loop thru vals until you reach the index right before insert position 
@@ -120,22 +122,33 @@ export default class LinkedList {
             this.length = (this.length > 0) ? this.length-- : 0; // If the LL is not already empty, decrement its length property.
         }
 
-        this.remove = function(value?: AbstractNode, index?: number): void {
+        this.remove = function(value: AbstractNode | unknown, index?: number): void {
             /**
-             * Removes a given node from the Linked List.
+             * Removes a given node from the Linked List, using its value or index. To use only
+             * index, pass an empty string as the first parameter and the index as the second.
              * @param value: AbstractNode ==> node to be removed.
+             * @param index?: number ==> If index of element is known, it can be passed as param & deleted directly w/o traversing the LL.
              * @returns: void
              */
-            if(arguments.length == 0){ // One of the two optional parameters must be used in order to remove a node.
+            if(arguments.length == 0 || (index && index < 0) || (index && index >= this.length)){ // One of the two optional parameters must be used in order to remove a node.
+                // Index, if provided, must be within the bounds of this LL.
+                console.log("Invalid params passed to LinkedList.removeVal(). ");
                 return;
             } else if(index == 0){
                 this.delHead();
                 return;
-            } else if(index = this.length -1 ){
+            } else if(index = this.length - 1){
                 this.delTail();
                 return;
-            } else{
-                
+            } else if(index > 0 && index < this.length - 1){ // Known, valid index, which is not <head> or <tail>
+                let currentNode = this.head;
+                for(let i = 0; i < index; i++){
+                    // currentNode = currentNode?.next;
+                    /////////////////////////////////// DEVELOPING
+                }
+                // VALUE MIGHT NOT MATCH INDEX
+                // RETURN REMOVED VALUE? RETURN AS ABSTRACTNODE & SET .next & .last TO NULL IF SO
+
                 this.length--;
             }
         }
