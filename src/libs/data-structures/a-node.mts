@@ -1,3 +1,9 @@
+
+/**
+ * Defines a data node with optional <next> and <last> properties 
+ * for LinkedList support.
+ */
+
 export default class AbstractNode {
 
     private value; // value of the node
@@ -6,8 +12,9 @@ export default class AbstractNode {
     public readonly getValue;
     public setValue;
 
-    next?: AbstractNode | null;
-    last?: AbstractNode | null;
+    next?: AbstractNode | null | Array<unknown>; // Array<unknown> type useful if the node is part of a Graph.
+    last?: AbstractNode | null | Array<unknown>;
+    edges?: AbstractNode | null | Array<unknown> // Specifically for use in a Graph.
 
     constructor (val : unknown, next?: AbstractNode ){
 
