@@ -121,15 +121,23 @@ export default class LinkedList {
         }
 
         this.remove = function(value?: AbstractNode, index?: number): void {
-            if(arguments.length == 0){ // One of the two optional parameters must be used in order to remove a node.
-                return;
-            }
             /**
              * Removes a given node from the Linked List.
              * @param value: AbstractNode ==> node to be removed.
              * @returns: void
              */
-            this.length--;
+            if(arguments.length == 0){ // One of the two optional parameters must be used in order to remove a node.
+                return;
+            } else if(index == 0){
+                this.delHead();
+                return;
+            } else if(index = this.length -1 ){
+                this.delTail();
+                return;
+            } else{
+                
+                this.length--;
+            }
         }
 
         this.getNodeAtIndex = (index: number): AbstractNode | undefined => {
