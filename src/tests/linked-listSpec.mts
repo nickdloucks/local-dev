@@ -31,7 +31,7 @@ describe("LinkedList suite.",()=>{
         shortened.delTail();
         console.log(shortened.getTail()?.getValue());
         expect(shortened.getTail()?.getValue()).toEqual('d');
-    })
+    });
 
     it("returns correct value using 'getter' methods and the <next> property on the nodes.", ()=>{
         expect(listHead?.getValue()).toEqual('a');
@@ -41,7 +41,15 @@ describe("LinkedList suite.",()=>{
 
     it("reads the value at a given index correctly.", ()=>{
         expect(linked.getNodeAtIndex(2)?.getValue()).toEqual('c');
-    })
+    });
+
+    it("removes the correct node with <remove> method.", ()=>{
+
+    });
+
+    it("updates the <length> property correctly when inserting or deleting.", ()=>{
+        
+    });
 
     xit("changes values with 'setter' methods.", ()=>{
         // insert a new node at the head of the linked list,
