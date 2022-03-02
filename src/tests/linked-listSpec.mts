@@ -40,15 +40,32 @@ describe("LinkedList suite.",()=>{
     });
 
     it("reads the value at a given index correctly.", ()=>{
-        expect(linked.getNodeAtIndex(2)?.getValue()).toEqual('c');
+        expect(linked.readIndex(2)?.getValue()).toEqual('c');
     });
 
     it("removes the correct node with <remove> method.", ()=>{
+        let letters = ['a', 'b', 'c', 'd', 'e'];
+        let letterNodes: Array<AbstractNode> = letters.map((val: string)=>{
+            return new AbstractNode(val);
+        });
+        let linkedLetters = new LinkedList(letterNodes);
+        //let extractC = linkedLetters.remove('c');
+        linkedLetters.remove('c');
 
+        // expect(extractC).not.toBeNull();
+        // expect(extractC.getValue()).toEqual('c');
+        // return the removed node? or just delete it?
+        expect(linkedLetters.getLength).toBe(4);
+        expect(linkedLetters.readIndex(2)?.getValue()).toEqual('d');
+
+        //let indexExtract = linkedLetters.remove('', 2);
+        linkedLetters.remove('', 2);
+        expect(linkedLetters.getLength).toBe(3);
+        expect(linkedLetters.readIndex(2)?.getValue()).toEqual('e');
     });
 
     it("updates the <length> property correctly when inserting or deleting.", ()=>{
-        
+
     });
 
     xit("changes values with 'setter' methods.", ()=>{
