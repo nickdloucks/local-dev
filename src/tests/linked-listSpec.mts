@@ -34,9 +34,12 @@ describe("LinkedList suite.",()=>{
     });
 
     it("returns correct value using 'getter' methods and the <next> property on the nodes.", ()=>{
+        let second = listHead?.next as AbstractNode;
+        let third = second.next as AbstractNode;
+        
         expect(listHead?.getValue()).toEqual('a');
-        expect(listHead?.next?.getValue()).toEqual('b');
-        expect(listHead?.next?.next?.getValue()).toEqual('c');
+        expect(second.getValue()).toEqual('b');
+        expect(third.getValue()).toEqual('c');
     });
 
     it("reads the value at a given index correctly.", ()=>{
