@@ -41,9 +41,10 @@ export default class AbstractNode {
             childNode.parent = this;
         }
 
-        this.removeChild = function(target: AbstractNode): AbstractNode {
-            let position = this.children?.indexOf(target);
-            return this.children?.splice(position as number, 1)[0] as AbstractNode;
+        this.removeChild = function(target: AbstractNode): AbstractNode | undefined {
+            let position = this.children?.indexOf(target); // Find target node in list of children, remove first occurrence if present.
+            // Otherwise return <undefined>.
+            return (position != -1) ? this.children?.splice(position as number, 1)[0] as AbstractNode: undefined;
         }
 
     }
