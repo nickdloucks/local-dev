@@ -126,7 +126,7 @@ export default class LinkedList {
             this.length = (this.length > 0) ? this.length-- : 0; // If the LL is not already empty, decrement its length property.
         }
 
-        this.remove = function(value: AbstractNode | unknown, index?: number): void {
+        this.remove = function(value: AbstractNode | unknown = '', index?: number): void {
             /**
              * Removes a given node from the Linked List, using its value or index. To use only
              * index, pass an empty string as the first parameter and the index as the second.
