@@ -20,5 +20,5 @@ describe("Abstract Node Class", ()=>{
 
         expect(numList.getHead()?.next?.getValue()).toEqual(2);
         //expect(numList.getTail()?.last?.getValue()).toEqual(3);
-    })
+    });
 });
