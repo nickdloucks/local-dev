@@ -13,8 +13,8 @@ export default class AbstractNode {
     public setValue;
 
     // Properties for use in a LinkedList data structure:
-    next?: AbstractNode | null | Array<unknown>; // Array<unknown> type useful if the node is part of a Graph.
-    last?: AbstractNode | null | Array<unknown>;
+    next?: AbstractNode | null
+    last?: AbstractNode | null
     
     // Properties for use in a Graph data structure:
     edges?: AbstractNode | null | Array<unknown> // Specifically for use in a Graph.
