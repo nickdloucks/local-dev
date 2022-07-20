@@ -15,6 +15,7 @@ class CSVObject {
         let jsonObj = {}; 
         data.forEach(row => {
             // jsonObj['key'] = value
+// Add to list of rows so they can be indexed too
         });
 
         // then assign all values to the correct headers and populate a matrix of row objects
