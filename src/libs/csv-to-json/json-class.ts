@@ -1,6 +1,7 @@
 class CSVObject {
     public rows: string[]
     headers: string[]
+    rows: unknown[]
 
     constructor(data: string){
         this.rows = data.split('/n');
@@ -15,6 +16,7 @@ class CSVObject {
         let jsonObj = {}; 
         data.forEach(row => {
             // jsonObj['key'] = value
+            // this.rows.push(<row>)
 // Add to list of rows so they can be indexed too
         });
 
