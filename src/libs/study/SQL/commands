@@ -1,0 +1,27 @@
+SELECT FROM
+UPDATE
+DELETE FROM
+INSERT INTO
+CREATE DATABASE
+ALTER DATABASE
+CREATE TABLE
+ALTER TABLE
+DROP TABLE
+CREATE INDEX
+DROP INDEX
+
+
+WHERE ====> filter
+ORDER BY <field> ASC | DESC;
+
+<field> IS NULL
+
+
+functions:
+MIN(<field>)
+MAX(<field>)
+COUNT(<field>)
+AVG(<field>)
+SUM(<field>)
+
+IN (condition1, condition2, condition3) // replaces multiple OR statements
