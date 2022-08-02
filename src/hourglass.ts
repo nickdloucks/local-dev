@@ -15,15 +15,33 @@ function getMaxGlassSum(grid: Array<Array<number>>){
     // This initial coordinate graph defines the shape of an hourglass within a 2D array/matrix:
     let yCoors: number[] = [0,0,0,1,2,2,2];
     let xCoors: number[] = [0,1,2,1,0,1,2];
+
+    // EXAMPLE:
+    // [
+    //  [0,0], [0,1], [0,1]
+    //          [1,1]
+    //  [2,0], [2,1], [2,2]
+    // ]
+    // ^ These are the coordinates of each element in the first Hourglass in the matrix (in the "upper left" corner)
     
+    // The values would be:
+    // [1,1,1]
+    //   [1]
+    // [1,1,1]
+
+    // For comparison, the values of the Hourglass at the "bottom right" corner of the input matrix would be:
+    // [4,4,0]
+    //   [0]
+    // [2,4,0]
+
     // Coordinate adjustment subroutines:
     function incCoors(coorsList: Array<number>){
-        for(let i=0; i<coorsList.length; i++){
+        for(let i = 0; i < coorsList.length; i++){
             coorsList[i]++; // increment each coordinate 
         }
     }
     function resetCoors(coorsList: Array<number>){
-        for(let i=0; i<coorsList.length; i++){
+        for(let i = 0; i < coorsList.length; i++){
             coorsList[i] -= 4; // reset coordinates
         }
     }
@@ -41,8 +59,8 @@ function getMaxGlassSum(grid: Array<Array<number>>){
         console.log("Current maximum: " + maxGlassSum);
     }
 
-    for(let i=1; i<=4; i++){
-        for(let j=1; j<=4; j++){
+    for(let i = 1; i <= 4; i++){
+        for(let j = 1; j <= 4; j++){
             sumGlass(); // Get the sum of each of the four Hourglasses in a row
             incCoors(xCoors);
         }
