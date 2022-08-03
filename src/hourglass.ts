@@ -1,6 +1,6 @@
-//**
+/**
     * This program finds the biggest sum of the values in any Hourglass shape within a matrix.
-    *//
+    */
 
 
  input = [
