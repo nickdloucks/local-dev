@@ -1,3 +1,8 @@
+/**
+    * This program finds the biggest sum of the values in any Hourglass shape within a matrix.
+    */
+
+
 const input = [
     [1,1,1,0,0,0],
     [0,1,0,0,0,0],
