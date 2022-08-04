@@ -59,6 +59,7 @@ function getMaxGlassSum(grid: Array<Array<number>>){
             let x = xCoors[i];
 
             runningSum += grid[y][x]; // Add up the value of the 7 elements in the current Hourglass
+                // POSSIBLE BUG^ ?
         }
         maxGlassSum = (runningSum > maxGlassSum) ? runningSum : maxGlassSum;
         console.log("Sum of current Hourglass: " + runningSum);
