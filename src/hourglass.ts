@@ -45,11 +45,13 @@ function getMaxGlassSum(grid: Array<Array<number>>){
         for(let i = 0; i < coorsList.length; i++){
             coorsList[i]++; // increment each coordinate 
         }
+// return coorsList.map(coordinate: number => coordinate + 1)
     }
     function resetCoors(coorsList: Array<number>){
         for(let i = 0; i < coorsList.length; i++){
             coorsList[i] -= 4; // reset coordinates
         }
+// return coorsList map(coordinate: number => coordinate - 4)
     }
 
     // Subroutine to total a single Hourglass:
