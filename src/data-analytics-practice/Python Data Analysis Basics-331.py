@@ -108,7 +108,7 @@ def artist_summary(name):
 artist_summary("Henri Matisse")
 
 ## 8. Formatting Numbers Inside Strings ##
-
+# practice with the format function and the specifications for displaying numbers
 pop_millions = [
     ["China", 1379.302771],
     ["India", 1281.935991],
@@ -116,7 +116,7 @@ pop_millions = [
     ["Indonesia",  260.580739],
     ["Brazil",  207.353391],
 ]
-template = "The population of {name} is {pop:,.2f} million"
+template = "The population of {name} is {pop:,.2f} million" # { <variable_name> : <colon separator> , <comma for big numners> .2f <float number precision> }
 for country in pop_millions:
     name = country[0]
     pop = country[1]
@@ -125,6 +125,7 @@ for country in pop_millions:
 
 ## 9. Challenge: Summarizing Artwork Gender Data ##
 
+# create a frequency table for number of artworks by each gender
 gender_freq = {}
 for row in moma:
     gender = row[5]
@@ -132,7 +133,8 @@ for row in moma:
         gender_freq[gender] = 1
     else:
         gender_freq[gender] += 1
-        
+
+#  dicplay the formatted data
 for gender, count in gender_freq.items():
     template = "There are {count:,} artworks by {gender} artists"
     print(template.format(count = count, gender = gender))
